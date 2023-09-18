@@ -51,12 +51,14 @@ class SurveyPublish(generics.UpdateAPIView):
         if instance.created_by != self.request.user:
             return Response({"detail": "You don't have permission to publish this survey."})
         
-        instance.is_published = True
-        instance.save()
+        serializer = self.get_serializer(instance, data=request.data)
+
+        if serializer.is_valid():
+            instance.is_published = serializer.validated_data.get('is_published')
+            instance.save()
+
+            return Response({"detail": "Survey published successfully."}, status=status.HTTP_200_OK)
         
-        return Response({"detail": "Survey published successfully."})
-
-
 
 class SurveyDetail(generics.RetrieveAPIView):
      serializer_class=SurveyDetailSerializer
