@@ -53,11 +53,12 @@ class SurveyPublish(generics.UpdateAPIView):
         
         serializer = self.get_serializer(instance, data=request.data)
 
-        if serializer.is_valid():
-            instance.is_published = serializer.validated_data.get('is_published')
-            instance.save()
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer.save()
 
-            return Response({"detail": "Survey published successfully."}, status=status.HTTP_200_OK)
+        return Response({"detail": "Survey published successfully."}, status=status.HTTP_200_OK)
         
 
 class SurveyDetail(generics.RetrieveAPIView):
