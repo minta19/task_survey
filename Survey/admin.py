@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CustomUser,Survey,Question,SurveyResponse,Score
+from .models import CustomUser, Survey, Question, SurveyResponse, Score
 
 admin.site.register(CustomUser)
 admin.site.register(Survey)
