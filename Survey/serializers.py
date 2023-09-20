@@ -187,10 +187,3 @@ class QuestionAddSerializer(serializers.ModelSerializer):
         exclude = ["survey"]
 
 
-class ResponseListserializer(serializers.ModelSerializer):
-    user = UserNameSerializer(read_only=True)
-    survey = SurveyEditSerializer(read_only=True)
-
-    class Meta:
-        model = SurveyResponse
-        fields = ["user", "survey"]
